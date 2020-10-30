@@ -12,6 +12,7 @@ confidences = []
 labels = []
 imagelist = []
 
+
 for r in rows:
     names.append(r["image_name"])
     confidences.append(r["face_box_confidence"])
@@ -21,6 +22,7 @@ for r in rows:
 for d, e, f in os.walk(imagepath):
     for fi in f:
         imagelist.append(fi)
+
 
 res = 224
 

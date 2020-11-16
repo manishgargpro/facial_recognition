@@ -33,10 +33,15 @@ for r in rows:
     confidences.append(r["face_box_confidence"])
     labels.append(r["expression_label"])
 
-for d, e, f in os.walk(imagepath):
-    for fi in f:
-        fiarr = np.load(os.path.join(imagepath, fi))
-        imagelist.append(fiarr)
+def getimages():  
+  for d, e, f in os.walk(imagepath):
+      for fi in f:
+          fiarr = np.load(os.path.join(imagepath, fi))
+          imagelist.append(fiarr)
+
+def loadmodel():
+  model = Sequential()
+  model.add(ResNet50())
 
 for i in imagelist:
     print(i)

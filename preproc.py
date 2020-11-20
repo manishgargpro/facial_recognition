@@ -8,7 +8,7 @@ from pprint import pprint
 labelpath = r'C:\Users\Administrator\Desktop\Coding_stuff\facial_recognition\data\label\label.csv'
 testpath = r'C:\Users\Administrator\Desktop\Coding_stuff\facial_recognition\data\label\label_test.csv'
 imagepath = r'C:\Users\Administrator\Desktop\Coding_stuff\facial_recognition\data\image\origin'
-newpath = r'C:\Users\Administrator\Desktop\Coding_stuff\facial_recognition\data\image\classified_test'
+newpath = r'C:\Users\Administrator\Desktop\Coding_stuff\facial_recognition\data\image\full_test'
 labels = csv.DictReader(open(labelpath))
 # names = []
 # confidences = []
@@ -43,25 +43,33 @@ def cropandsave(l):
     crop.save(os.path.join(newpath, l["expression_label"], newname))
 
 
+def justsave(l):
+    # for l in labels:
+    img = Image.open(os.path.join(imagepath, l["image_name"]))
+    newname = l["image_name"].rsplit(
+        ".", 1)[0] + "_" + l["face_id_in_image"] + ".jpg"
+    img.save(os.path.join(newpath, l["expression_label"], newname))
+
+
 num = 0
 w = csv.writer(open(testpath, "a", newline=""))
 for i in labels:
     num += 1
-    # print(num)
+    # # print(num)
     if num % 10 == 0:
-        cropandsave(i)
+        justsave(i)
         # print(i)
-        # w.writerow([
-        #     i["image_name"],
-        #     i["face_id_in_image"],
-        #     i["face_box_top"],
-        #     i["face_box_left"],
-        #     i["face_box_right"],
-        #     i["face_box_bottom"],
-        #     i["face_box_confidence"],
-        #     i["expression_label"]
-        # ])
+    # w.writerow([
+    #     i["image_name"],
+    #     i["face_id_in_image"],
+    #     i["face_box_top"],
+    #     i["face_box_left"],
+    #     i["face_box_right"],
+    #     i["face_box_bottom"],
+    #     i["face_box_confidence"],
+    #     i["expression_label"]
+    # ])
 
-print(num)
+# print(num)
 
 # print(len(list(dict.fromkeys(nameseen))))
